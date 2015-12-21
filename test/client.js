@@ -1,9 +1,9 @@
 'use strict';
 
 const expect = require('chai').expect;
-const client = require('../lib/client');
+const Client = require('../lib/client');
 
-describe('client()', () => {
+describe('Client()', () => {
 
   describe('constructor()', () => {
 

@@ -1,22 +1,33 @@
 {
   "name": "jsonapi-client",
+  "description": "Helpers for working with JSONAPIs on the client side.",
   "version": "0.0.1",
   "dependencies": {
+    "continue-stream": "^2.0.0",
     "go-fetch": "^2.2.0",
     "go-fetch-content-type": "^0.3.0",
-    "go-fetch-parse-body": "^2.2.1"
+    "go-fetch-parse-body": "^2.2.1",
+    "go-fetch-prefix-url": "^0.2.0",
+    "invariant": "^2.2.0",
+    "qs": "^6.0.1",
+    "stream-array": "^1.1.1"
   },
   "devDependencies": {
     "chai": "^3.4.1",
     "eslint": "^1.9.0",
-    "eslint-config-jameslnewell": "^0.2.2",
-    "go-fetch-auth": "^1.0.1",
-    "go-fetch-prefix-url": "^0.2.0"
+    "eslint-config-jameslnewell": "^0.4.0",
+    "mocha": "^2.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
   },
   "scripts": {
     "lint": "eslint **/*.js",
+    "start": "node_modules/endpoints-example/",
     "test": "mocha --recursive",
     "test.watch": "mocha --recursive --watch",
     "cover": "istanbul cover _mocha -- --recursive"
-  }
+  },
+  "license": "MIT"
 }

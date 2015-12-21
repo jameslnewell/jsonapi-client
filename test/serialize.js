@@ -95,28 +95,38 @@ describe('serialize()', () => {
 
   });
 
-  it('should have a one-to-one relationship', () => {
+  it('should have a null relationship', () => {
 
     const json = serialize(FIXTURE_PERSON_SCHEMA, {
-      email: {location: 'Home', address: 'john.smith@example.com'}
+      email: null
     });
 
     expect(json).to.exist;
     expect(json.data).to.exist;
     expect(json.data.relationships).to.exist;
-    expect(json.data.relationships.email).to.exist;
 
+    expect(json.data.relationships.email).to.exist;
+    expect(json.data.relationships.email.data).to.be.equal(null);
+
+  });
+
+  it('should have a one-to-one relationship', () => {
+
+    const json = serialize(FIXTURE_PERSON_SCHEMA, {
+      email: {id: 12, location: 'Home', address: 'john.smith@example.com'}
+    });
+
+    expect(json).to.exist;
+    expect(json.data).to.exist;
+    expect(json.data.relationships).to.exist;
+
+    expect(json.data.relationships.email).to.exist;
     expect(json.data.relationships.email.data).to.exist;
-    expect(json.data.relationships.email.data.type)
-      .to.be.equal(FIXTURE_PERSON_SCHEMA.relationships.emails)
-    ;
-    expect(json.data.relationships.email.data.attributes).to.exist;
-    expect(json.data.relationships.email.data.attributes.location)
-      .to.be.equal('Home')
-    ;
-    expect(json.data.relationships.email.data.attributes.address)
-      .to.be.equal('john.smith@example.com')
-    ;
+
+    expect(json.data.relationships.email.data).to.be.deep.equal({
+      id: 12,
+      type: FIXTURE_PERSON_SCHEMA.relationships.email
+    });
 
   });
 
@@ -124,77 +134,62 @@ describe('serialize()', () => {
 
     const json = serialize(FIXTURE_PERSON_SCHEMA, {
       emails: [
-        {location: 'Home', address: 'johnny@example.com'},
-        {location: 'Work', address: 'john.smith@example.com'}
+        {id: 13, location: 'Home', address: 'johnny@example.com'},
+        {id: 42, location: 'Work', address: 'john.smith@example.com'}
       ]
     });
 
     expect(json).to.exist;
     expect(json.data).to.exist;
     expect(json.data.relationships).to.exist;
+
     expect(json.data.relationships.emails).to.exist;
-    expect(json.data.relationships.emails.length).to.be.equal(2);
+    expect(json.data.relationships.emails.data).to.be.an('array');
+    expect(json.data.relationships.emails.data.length).to.be.equal(2);
 
-    expect(json.data.relationships.emails[0].data.type)
-      .to.be.equal(FIXTURE_PERSON_SCHEMA.relationships.emails)
-    ;
-    expect(json.data.relationships.emails[0].data.attributes).to.exist;
-    expect(json.data.relationships.emails[0].data.attributes.location)
-      .to.be.equal('Home')
-    ;
-    expect(json.data.relationships.emails[0].data.attributes.address)
-      .to.be.equal('johnny@example.com')
-    ;
+    expect(json.data.relationships.emails.data[0]).to.be.deep.equal({
+      id: 13,
+      type: FIXTURE_PERSON_SCHEMA.relationships.emails
+    });
 
-    expect(json.data.relationships.emails[1].data.type)
-      .to.be.equal(FIXTURE_PERSON_SCHEMA.relationships.emails)
-    ;
-    expect(json.data.relationships.emails[1].data.attributes).to.exist;
-    expect(json.data.relationships.emails[1].data.attributes.location)
-      .to.be.equal('Work')
-    ;
-    expect(json.data.relationships.emails[1].data.attributes.address)
-      .to.be.equal('john.smith@example.com')
-    ;
+    expect(json.data.relationships.emails.data[1]).to.be.deep.equal({
+      id: 42,
+      type: FIXTURE_PERSON_SCHEMA.relationships.emails
+    });
 
   });
 
   it('should have multiple relationships', () => {
 
     const json = serialize(FIXTURE_PERSON_SCHEMA, {
-      email: {location: 'Home', address: 'john.smith@example.com'},
-      phone: {location: 'Home', number: '02491111'}
+      email: {id: 13, location: 'Home', address: 'john.smith@example.com'},
+      phone: {id: 42, location: 'Home', number: '02491111'}
     });
 
     expect(json).to.exist;
     expect(json.data).to.exist;
     expect(json.data.relationships).to.exist;
 
-    expect(json.data.relationships.email).to.exist;
-    expect(json.data.relationships.email.data).to.exist;
-    expect(json.data.relationships.email.data.type)
-      .to.be.equal(FIXTURE_PERSON_SCHEMA.relationships.email)
-    ;
-    expect(json.data.relationships.email.data.attributes).to.exist;
-    expect(json.data.relationships.email.data.attributes.location)
-      .to.be.equal('Home')
-    ;
-    expect(json.data.relationships.email.data.attributes.address)
-      .to.be.equal('john.smith@example.com')
-    ;
 
-    expect(json.data.relationships.phone).to.exist;
-    expect(json.data.relationships.phone.data).to.exist;
-    expect(json.data.relationships.phone.data.type)
-      .to.be.equal(FIXTURE_PERSON_SCHEMA.relationships.phones)
-    ;
-    expect(json.data.relationships.phone.data.attributes).to.exist;
-    expect(json.data.relationships.phone.data.attributes.location)
-      .to.be.equal('Home')
-    ;
-    expect(json.data.relationships.phone.data.attributes.number)
-      .to.be.equal('02491111')
-    ;
+    expect(json.data.relationships.email.data).to.be.deep.equal({
+      id: 13,
+      type: FIXTURE_PERSON_SCHEMA.relationships.email
+    });
+
+    expect(json.data.relationships.phone.data).to.be.deep.equal({
+      id: 42,
+      type: FIXTURE_PERSON_SCHEMA.relationships.phone
+    });
+
+  });
+
+  it('should throw an error when a related object does not have an ID', () => {
+
+    expect(
+      () => serialize(FIXTURE_PERSON_SCHEMA, {
+        email: {location: 'Home', address: 'john.smith@example.com'}
+      })
+    ).to.throw();
 
   });
 
