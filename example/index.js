@@ -1,31 +1,25 @@
-# jsonapi-collection
-
-A client for working with JSON:API collections.
-
-Automatically serializes/unserializes simple JS objects into JSON:API resources.
-
-## Installation
-
-```bash
-npm install --save jsonapi-collection
-```
-
-## Usage
-
-```javascript
+'use strict';
 
 const HttpClient = require('go-fetch');
 const fetchPrefix = require('go-fetch-prefix-url');
 const fetchJson = require('go-fetch-json');
-const fetchAuth = require('go-fetch-auth');
-const JSONAPI = require('jsonapi-collection');
+const JSONAPI = require('..');
 
 //configure a HTTP client
 const fetch = new HttpClient()
-  .use(fetchPrefix('http://localhost/'))
+  .use(fetchPrefix('http://localhost:16006/rest'))
   .use(fetchJson())
-  .use(fetchAuth('username', 'password'))
 ;
+
+fetch.before((res, next) => {
+  console.log(res.toString());
+  next(null, res);
+});
+
+fetch.after((res, next) => {
+  console.log(res.toString());
+  next(null, res);
+});
 
 //create a JSON:API collection
 const collection = new JSONAPI({
@@ -57,9 +51,9 @@ collection.all()
 
 //create a new resource in the collection
 collection.create({
-  title: 'Bacon for breakfast!',
-  url: 'http://www.example.com/bacon-breakfast.jpg'
-})
+    title: 'Bacon for breakfast!',
+    url: 'http://www.example.com/bacon-breakfast.jpg'
+  })
   .then(json => console.log(json))
   .catch(err => console.error(err))
 ;
@@ -67,7 +61,7 @@ collection.create({
 //update an existing resource in the collection
 collection.update({
     id: 'aab14844-97e7-401c-98c8-0bd5ec922d93',
-    title: 'Bacon and eggs for breakfast!',
+    title: 'Bacon *and* eggs for breakfast!'
   })
   .then(json => console.log(json))
   .catch(err => console.error(err))
@@ -78,6 +72,3 @@ collection.delete('aab14844-97e7-401c-98c8-0bd5ec922d93')
   .then(json => console.log(json))
   .catch(err => console.error(err))
 ;
-
-```
-

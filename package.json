@@ -1,13 +1,10 @@
 {
-  "name": "jsonapi-client",
-  "description": "Helpers for working with JSONAPIs on the client side.",
+  "name": "jsonapi-fetch",
+  "main": "./lib/Collection.js",
+  "description": "A client for working with JSON:API collections.",
   "version": "0.0.1",
   "dependencies": {
     "continue-stream": "^2.0.0",
-    "go-fetch": "^2.2.0",
-    "go-fetch-content-type": "^0.3.0",
-    "go-fetch-parse-body": "^2.2.1",
-    "go-fetch-prefix-url": "^0.2.0",
     "invariant": "^2.2.0",
     "qs": "^6.0.1",
     "stream-array": "^1.1.1"
@@ -16,6 +13,9 @@
     "chai": "^3.4.1",
     "eslint": "^1.9.0",
     "eslint-config-jameslnewell": "^0.4.0",
+    "go-fetch": "^3.1.0",
+    "go-fetch-json": "^1.1.0",
+    "go-fetch-prefix-url": "^1.0.2",
     "mocha": "^2.3.4"
   },
   "repository": {
@@ -23,10 +23,10 @@
     "url": ""
   },
   "scripts": {
+    "demo:install": "mkdir tmp && cd tmp && git clone -q https://github.com/holidayextras/jsonapi-server.git && cd tmp/jsonapi-server/ && npm i",
+    "demo:start": "cd tmp/jsonapi-server/ && npm start",
     "lint": "eslint **/*.js",
-    "start": "node_modules/endpoints-example/",
     "test": "mocha --recursive",
-    "test.watch": "mocha --recursive --watch",
     "cover": "istanbul cover _mocha -- --recursive"
   },
   "license": "MIT"
