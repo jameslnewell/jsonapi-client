@@ -1,5 +1,5 @@
 {
-  "name": "jsonapi-fetch",
+  "name": "jsonapi-collection",
   "main": "./lib/Collection.js",
   "description": "A client for working with JSON:API collections.",
   "version": "0.0.1",
