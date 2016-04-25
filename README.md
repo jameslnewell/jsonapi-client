@@ -66,9 +66,9 @@ collection.create({
 
 //update an existing resource in the collection
 collection.update({
-    id: 'aab14844-97e7-401c-98c8-0bd5ec922d93',
-    title: 'Bacon and eggs for breakfast!',
-  })
+  id: 'aab14844-97e7-401c-98c8-0bd5ec922d93',
+  title: 'Bacon and eggs for breakfast!',
+})
   .then(json => console.log(json))
   .catch(err => console.error(err))
 ;
