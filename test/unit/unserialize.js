@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const unserialize = require('../lib/unserialize');
+const unserialize = require('../../lib/unserialize');
 
 describe('unserialize()', () => {
 

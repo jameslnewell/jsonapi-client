@@ -1,7 +1,7 @@
 'use strict';
 
 const expect = require('chai').expect;
-const serialize = require('../lib/serialize');
+const serialize = require('../../lib/serialize');
 
 const FIXTURE_PERSON_SCHEMA = {
   type: 'Person',
