@@ -2,7 +2,7 @@
   "name": "jsonapi-collection",
   "main": "./lib/Collection.js",
   "description": "A client for working with JSON:API collections.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
     "continue-stream": "^2.0.0",
     "invariant": "^2.2.0",
