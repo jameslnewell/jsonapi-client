@@ -51,9 +51,9 @@ collection.all()
 
 //create a new resource in the collection
 collection.create({
-    title: 'Bacon for breakfast!',
-    url: 'http://www.example.com/bacon-breakfast.jpg'
-  })
+  title: 'Bacon for breakfast!',
+  url: 'http://www.example.com/bacon-breakfast.jpg'
+})
   .then(json => console.log(json))
   .catch(err => console.error(err))
 ;
